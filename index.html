@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Python + GIS</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/moon.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+						<h3>Topics</h3>
+						<ul>
+							<li>Field calculation in QGIS and ArcGIS Pro
+			 				<li>Python scripts accessing QGIS or ArcGIS tools
+							<li>Jupyter Notebooks (standalone and within ArcGIS)
+						</ul>
+				</section>
+
+				<section>
+					<h3>Learning Objectives</h3>
+					<ol>
+						<li>How to access tools for using Python with GIS data
+						<li>Where to find resources for configuration and how to troubleshoot common issues
+						<li>How to create a shareable Jupyter Notebook for data exploration
+						<li>Tips for determining the right tool for the job (hint: sometimes Python is not the best answer)
+					</ol>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
