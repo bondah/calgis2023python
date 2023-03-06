@@ -65,12 +65,63 @@
 					<h3>Python Installation</h3>
 					<p>Python 3 comes with ArcGIS Pro and QGIS 3.x (and other software as well).</p>
 					<p>You can also install a standalone copy: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+					<p>Check if Python 3 is installed by opening terminal/command prompt and entering:</p>
+					<pre><code>python3 --version</code></pre>
 				</section>
 
 				<section>
 					<h3>Packages</h3>
 					<p>Your standard Python install comes with many libraries (reusable code), but you will likely need to add some additional packages.</p>
 					<p>You can use pip to install new packages.</p>
+				</section>
+
+				<section>
+					<h3>pip</h3>
+					<p>Check if pip is installed by opening terminal/command prompt and entering:</p>
+					<pre><code>pip --version</code></pre>
+					<p>If you don't see pip, install by entering:</p>
+						<p>Mac/Linux: <pre><code>python -m ensurepip --upgrade</code></pre></p>
+						<p>Windows: <pre><code>py -m ensurepip --upgrade</code></pre></p>	
+					</p>
+				</section>
+
+				<section>
+				<section>
+						<h3>Common Issue</h3>
+						<p>If you can't find Python or pip, but know it is installed, they may not be entered into PATH.</p>
+					</section>
+
+					<section>
+						<h3>PATH: Windows</h3>
+							<ul>
+								<li>Right-click This PC and going to Properties.</li>
+								<li>Click on Advanced system settings in the menu on the left.</li>
+								<li>Click on Environment Variables button on the bottom right.</li>
+								<li>In the System variables section, select the Path variable and click Edit. The next screen will show all the directories that are currently a part of the PATH variable.</li>
+								<li>Click on New and enter your Python install directory.</li>
+							</ul>
+					</section>
+
+					<section>
+						<h3>PATH: Mac/Linux</h3>
+						<ol>
+							<li>Open your bash file.
+								<p>Linux: Open .bashrc from your Home directory in text editor.</p>
+								<p>Mac: <pre><code>vi .bash_profile</code></pre></p></li>
+							<li><p>Scroll to the bottom and enter the following on a new line, then save.</p>
+							<pre><code>export PATH="$PATH:/usr/local/bin/python"</code></pre>
+							<p>(adjust your path if you installed in a different location)</p></li>
+						</ol>
+
+					</section>
+
+					<section>
+						<h3>Temporary PATH settings</h3>
+						<p>If your computer is very restricted and you can't edit PATH, you can temporarily set it in Terminal/Command.
+							<p>Mac/Linux: <pre><code>export PATH="$PATH:/usr/local/bin/python"</code></pre></p>
+							<p>Windows: <pre><code>C:\>set PATH=C:\Program Files\Python 3.6;%PATH%</code></pre></p>
+						</p>
+					</section>
 				</section>
 
 				<section>
