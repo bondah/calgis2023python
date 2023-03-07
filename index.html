@@ -129,6 +129,92 @@
 				</section>
 
 				<section>
+					<section>
+						<h2>A Pirate's Life for Me</h2>
+						<p>Monterey is known as the site of the only pirate attack in California history.</p>
+						<img data-src="/images/shipstamp.jpg">
+					</section>
+
+					<section>
+						<h2>History</h2>
+						<p></p>
+						<img data-src="/images/portrait.jpg">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Data Cleanup</h2>
+						<p>Let's remove some pesky parenthesis in the field names.</p>
+						<img data-src="/images/cleanupfields.png">
+					</section>
+
+					<section>
+						<h2>QGIS</h2>
+						<p>Open the Python console inside QGIS desktop. Click on the Show Editor button to add your script.</p>
+						<img data-src="/images/qgisconsole.png">
+					</section>
+
+					<section>
+						<h2>QGIS</h2>
+						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Click Run.</p>
+						<pre><code>
+							layer = iface.activeLayer()
+
+							layer.startEditing()
+							
+							for field in layer.fields():
+								if field.name().endswith('(m)'):
+									idx = layer.fields().lookupField(field.name())
+									new_name = field.name()[:-4]
+									layer.renameAttribute(idx, new_name)
+							
+							layer.commitChanges()</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Field Calculation</h2>
+						<p>Python can be a good way to do complex field calculations.</p>
+						<p>In this example, we will add a field called PiratePorts based on attributes of ports that are ideal for our deep draft sailing frigate.</p>
+					</section>
+
+					<section>
+						<h2>QGIS</h2>
+						<pre><code>
+							from qgis.core import *
+							from qgis.gui import *
+							
+							@qgsfunction(args='auto', group='Custom')
+							def pirateports(depth, provisions, water, security, feature, parent):
+								depth = float(depth)
+								if (water =="No" or depth <= 6.0):
+									return "Avast!"
+								elif security=="Yes":
+									return "Avast"
+								elif (provisions=="Yes" and water=="Yes"):
+									return "Aye!"
+								else:
+									return "Aye"</code></pre>
+						<pre><code>pirateports("Channel Depth", "Supplies - Provisions", "Supplies - Potable Water", "Port Security")</code></pre>
+					</section>
+
+					<section>
+						<h2>QGIS</h2>
+						<p>Add your script to the Function Editor and click Save and Load.</p>
+						<img data-src="/images/qgisfunction.png">
+					</section>
+
+					<section>
+						<h2>QGIS</h2>
+						<p>Then call your function from the Expression in Field Calculator.</p>
+						<img data-src="/images/qgisfield.png">
+					</section>
+
+				</section>
+
+				<section>
 					<h2>Standalone Python</h2>
 				</section>
 
