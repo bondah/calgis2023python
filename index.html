@@ -143,6 +143,13 @@
 				</section>
 
 				<section>
+					<h2>Data</h2>
+					<p>Data for QGIS Users is in the geopackage.</p>
+					<p>Data for ArcGIS Pro users is in the geodatabase.</p>
+					<p>(ArcGIS Pro is very limited in Geopackage functionality)</p>
+				</section>
+
+				<section>
 					<section>
 						<h2>Data Cleanup</h2>
 						<p>Let's remove some pesky parenthesis in the field names.</p>
@@ -158,20 +165,55 @@
 					<section>
 						<h2>QGIS</h2>
 						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Click Run.</p>
-						<pre><code>
-							layer = iface.activeLayer()
-
-							layer.startEditing()
+						<pre><code>layer = iface.activeLayer()
+layer.startEditing()
 							
-							for field in layer.fields():
-								if field.name().endswith('(m)'):
-									idx = layer.fields().lookupField(field.name())
-									new_name = field.name()[:-4]
-									layer.renameAttribute(idx, new_name)
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		idx = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(idx, new_name)
 							
-							layer.commitChanges()</code></pre>
+layer.commitChanges()</code></pre>
 					</section>
-				</section>
+			
+					<section>
+						<h2>QGIS</h2>
+						<p>Because ArcGIS Pro is very sensitive, I also cleaned up the field names to make them exportable to geodatabase.</p>
+						<pre><code>import re
+layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	idx = layer.fields().lookupField(field.name())
+	new_name = re.sub(r'[^0-9A-za-z]','',field.name())
+	layer.renameAttribute(idx, new_name)
+							
+layer.commitChanges()</code></pre>
+					</section>
+
+					<section>
+						<h2>ArcGIS</h2>
+						<p>Open the Python console inside ArcGIS Pro.</p>
+						<img data-src="/images/arcgisconsole.png">
+					</section>
+
+					<section>
+						<h2>ArcGIS</h2>
+						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Press enter twice to run.</p>
+						<pre><code>fc = 'World_Ports'
+fieldList = arcpy.ListFields(fc)
+for field in fieldList:
+	if 'Communications' in field.name:
+		new_name = field.name.replace('Communications', 'Comms')
+		arcpy.AlterField_management(fc, field.name, new_name)</code></pre>
+					</section>
+					</section>
+
+					<section>
+						<h2>Troubleshooting</h2>
+						<p></p>
+					</section>
 
 				<section>
 					<section>
@@ -182,21 +224,20 @@
 
 					<section>
 						<h2>QGIS</h2>
-						<pre><code>
-							from qgis.core import *
-							from qgis.gui import *
+						<pre><code>from qgis.core import *
+from qgis.gui import *
 							
-							@qgsfunction(args='auto', group='Custom')
-							def pirateports(depth, provisions, water, security, feature, parent):
-								depth = float(depth)
-								if (water =="No" or depth <= 6.0):
-									return "Avast!"
-								elif security=="Yes":
-									return "Avast"
-								elif (provisions=="Yes" and water=="Yes"):
-									return "Aye!"
-								else:
-									return "Aye"</code></pre>
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security, feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
 						<pre><code>pirateports("Channel Depth", "Supplies - Provisions", "Supplies - Potable Water", "Port Security")</code></pre>
 					</section>
 
