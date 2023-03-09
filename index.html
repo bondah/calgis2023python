@@ -16,6 +16,11 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
+
+				<section>
+					<h1>Using Python with Geospatial Data: Overview of Tools</h1>
+				</section>
+
 				<section>
 						<h3>Topics</h3>
 						<ul>
@@ -36,7 +41,7 @@
 				</section>
 
 				<section>
-					<h3>Why is Python so awesome for GIS?</h3>
+					<h3>Why is Python so awesome for geospatial?</h3>
 					<ul>
 						<li>Approachable programming language</li>
 						<li>Many spatial libraries</li>
@@ -66,7 +71,7 @@
 					<p>Python 3 comes with ArcGIS Pro and QGIS 3.x (and other software as well).</p>
 					<p>You can also install a standalone copy: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
 					<p>Check if Python 3 is installed by opening terminal/command prompt and entering:</p>
-					<pre><code>python3 --version</code></pre>
+					<pre class="cmd"><code>python3 --version</code></pre>
 				</section>
 
 				<section>
@@ -78,10 +83,10 @@
 				<section>
 					<h3>pip</h3>
 					<p>Check if pip is installed by opening terminal/command prompt and entering:</p>
-					<pre><code>pip --version</code></pre>
+					<pre><code class="cmd">pip --version</code></pre>
 					<p>If you don't see pip, install by entering:</p>
-						<p>Mac/Linux: <pre><code>python -m ensurepip --upgrade</code></pre></p>
-						<p>Windows: <pre><code>py -m ensurepip --upgrade</code></pre></p>	
+						<p>Mac/Linux: <pre><code class="cmd">python -m ensurepip --upgrade</code></pre></p>
+						<p>Windows: <pre><code class="cmd">py -m ensurepip --upgrade</code></pre></p>	
 					</p>
 				</section>
 
@@ -109,7 +114,7 @@
 								<p>Linux: Open .bashrc from your Home directory in text editor.</p>
 								<p>Mac: <pre><code>vi .bash_profile</code></pre></p></li>
 							<li><p>Scroll to the bottom and enter the following on a new line, then save.</p>
-							<pre><code>export PATH="$PATH:/usr/local/bin/python"</code></pre>
+							<pre><code class="cmd">export PATH="$PATH:/usr/local/bin/python"</code></pre>
 							<p>(adjust your path if you installed in a different location)</p></li>
 						</ol>
 
@@ -118,8 +123,8 @@
 					<section>
 						<h3>Temporary PATH settings</h3>
 						<p>If your computer is very restricted and you can't edit PATH, you can temporarily set it in Terminal/Command.
-							<p>Mac/Linux: <pre><code>export PATH="$PATH:/usr/local/bin/python"</code></pre></p>
-							<p>Windows: <pre><code>C:\>set PATH=C:\Program Files\Python 3.6;%PATH%</code></pre></p>
+							<p>Mac/Linux: <pre><code class="cmd">export PATH="$PATH:/usr/local/bin/python"</code></pre></p>
+							<p>Windows: <pre><code class="cmd">C:\>set PATH=C:\Program Files\Python 3.6;%PATH%</code></pre></p>
 						</p>
 					</section>
 				</section>
@@ -165,7 +170,7 @@
 					<section>
 						<h2>QGIS</h2>
 						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Click Run.</p>
-						<pre><code>layer = iface.activeLayer()
+						<pre><code class="python">layer = iface.activeLayer()
 layer.startEditing()
 							
 for field in layer.fields():
@@ -180,7 +185,7 @@ layer.commitChanges()</code></pre>
 					<section>
 						<h2>QGIS</h2>
 						<p>Because ArcGIS Pro is very sensitive, I also cleaned up the field names to make them exportable to geodatabase.</p>
-						<pre><code>import re
+						<pre><code class="python">import re
 layer = iface.activeLayer()
 layer.startEditing()
 							
@@ -193,6 +198,23 @@ layer.commitChanges()</code></pre>
 					</section>
 
 					<section>
+						<h2>Regular Expressions</h2>
+						<p>Regeular Expressions (or regex for short) are handy ways to match/search.</p>
+						<p>Like Python, there are lots of free resources to learn such as: <a href="https://regexr.com/">https://regexr.com/</a></p>
+						<pre><code class="python" data-line-numbers="1,7">import re
+layer = iface.activeLayer()
+layer.startEditing()
+														
+for field in layer.fields():
+	idx = layer.fields().lookupField(field.name())
+	new_name = re.sub(r'[^0-9A-za-z]','',field.name())
+	layer.renameAttribute(idx, new_name)
+														
+	layer.commitChanges()</code></pre>
+						<p>Here we remove everything that isn't a number or letter.</p>
+					</section>
+
+					<section>
 						<h2>ArcGIS</h2>
 						<p>Open the Python console inside ArcGIS Pro.</p>
 						<img data-src="/images/arcgisconsole.png">
@@ -201,18 +223,30 @@ layer.commitChanges()</code></pre>
 					<section>
 						<h2>ArcGIS</h2>
 						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Press enter twice to run.</p>
-						<pre><code>fc = 'World_Ports'
+						<pre><code class="python">fc = 'World_Ports'
 fieldList = arcpy.ListFields(fc)
 for field in fieldList:
-	if 'Communications' in field.name:
-		new_name = field.name.replace('Communications', 'Comms')
+	fname = field.name
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
 		arcpy.AlterField_management(fc, field.name, new_name)</code></pre>
 					</section>
 					</section>
 
 					<section>
 						<h2>Troubleshooting</h2>
-						<p></p>
+						<p>Running scripts in the Python window should return errors. However, sometimes the script fails without an error.</p>
+						<p>Add print commands to better understand where things might be going wrong.</p>
+						<pre><code class="python" data-line-numbers="5,8,10">fc = 'World_Ports'
+fieldList = arcpy.ListFields(fc)
+for field in fieldList:
+	fname = field.name
+	print("old name: ",fname)
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
+		print("new name: ",new_name)
+		arcpy.AlterField_management(fc, field.name, new_name)
+print("done")</code></pre>
 					</section>
 
 				<section>
@@ -224,7 +258,7 @@ for field in fieldList:
 
 					<section>
 						<h2>QGIS</h2>
-						<pre><code>from qgis.core import *
+						<pre><code class="python">from qgis.core import *
 from qgis.gui import *
 							
 @qgsfunction(args='auto', group='Custom')
@@ -238,7 +272,6 @@ def pirateports(depth, provisions, water, security, feature, parent):
 		return "Aye!"
 	else:
 		return "Aye"</code></pre>
-						<pre><code>pirateports("Channel Depth", "Supplies - Provisions", "Supplies - Potable Water", "Port Security")</code></pre>
 					</section>
 
 					<section>
@@ -250,7 +283,30 @@ def pirateports(depth, provisions, water, security, feature, parent):
 					<section>
 						<h2>QGIS</h2>
 						<p>Then call your function from the Expression in Field Calculator.</p>
+						<pre><code>pirateports("Channel Depth", "Supplies - Provisions", "Supplies - Potable Water", "Port Security")</code></pre>
 						<img data-src="/images/qgisfield.png">
+					</section>
+
+					<section>
+						<h2>ArcGIS</h2>
+						<pre><code>
+def pirateports(depth, provisions, water, security):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>ArcGIS</h2>
+						<p>Open the attribute table and click Calculate Field. Add your script to Code Block and your function to Expression and Apply.</p>
+						<pre><code class="python">pirateports(!ChannelDepth!,!SuppliesProvisions!,!SuppliesPotable Water!,!Port Security!)</code></pre>
+						<img data-src="/images/arcgisfield.png">
 					</section>
 
 				</section>
@@ -266,6 +322,14 @@ def pirateports(depth, provisions, water, security, feature, parent):
 				<section>
 					<h2>Selecting the Right tool</h2>
 				</section>
+
+				<section>
+					<h2>Get in Touch</h2>
+					<br>
+					<p class="center">Bond Harper</p>
+					<p class="center"><a href="mailto:bond.harper@arup.com">bond.harper@arup.com</a></p>
+				</section>
+
 			</div>
 		</div>
 
