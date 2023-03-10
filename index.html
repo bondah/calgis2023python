@@ -70,6 +70,7 @@
 					<h3>Python Installation</h3>
 					<p>Python 3 comes with ArcGIS Pro and QGIS 3.x (and other software as well).</p>
 					<p>You can also install a standalone copy: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+					<p>To avoid issues, if you want to follow along on the standalone Python and some Jupyter examples, standalone is reccomended.</p>
 					<p>Check if Python 3 is installed by opening terminal/command prompt and entering:</p>
 					<pre class="cmd"><code>python3 --version</code></pre>
 				</section>
@@ -77,7 +78,7 @@
 				<section>
 					<h3>Packages</h3>
 					<p>Your standard Python install comes with many libraries (reusable code), but you will likely need to add some additional packages.</p>
-					<p>You can use pip to install new packages.</p>
+					<p>You can use pip or conda to install new packages.</p>
 				</section>
 
 				<section>
@@ -91,7 +92,17 @@
 				</section>
 
 				<section>
+					<h3>conda</h3>
+					<p>You are less likely to have conda already installed than pip. Conda is beneficial because it does well handling dependencies.</p>
+					<p>It also can be troublesome with multiple installs.</p>
+					<p><a href="https://docs.conda.io/en/latest/miniconda.html#installing">Install Miniconda</a></p>
+					<p>Check your install by opening Terminal/Command and typing:</p>
+					<pre class="cmd"><code>conda list</code></pre>
+					<p>Do not mix conda and pip installs!</p>
+				</section>
+
 				<section>
+					<section>
 						<h3>Common Issue</h3>
 						<p>If you can't find Python or pip, but know it is installed, they may not be entered into PATH.</p>
 					</section>
@@ -313,6 +324,70 @@ def pirateports(depth, provisions, water, security):
 
 				<section>
 					<h2>Standalone Python</h2>
+				</section>
+
+				<section>
+					<h2>Python for Spatial</h2>
+					<p>There are many spatial libraries for Python outside of those associated with ArcGIS and QGIS. Here are just a few:
+						<ul>
+							<li>GDAL</li>
+							<li>OGR</li>
+							<li>GeoPandas</li>
+							<li>Folium</li>
+							<li>LasPy</li>
+						</ul>
+					</p>
+					<p>We'll use GeoPandas today.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Using GeoPandas</h2>
+						<p>First, you'll need all the dependencies.</p>
+						<p>If you've commited to conda, open Terminal/Command and enter:</p>
+						<pre class="cmd"><code>conda install geopandas</code></pre>
+						<p>Skip ahead if you prefer pip.</p>
+					</section>
+
+					<section>
+						<h2>Pip Install</h2>
+						<p>You may find you have to troubleshoot and install additional dependent libraries if you use pip. You must install in the following order.</p>
+						<ol>
+							<li><pre><code>pip install GDAL</pre></code></li>
+							<li><pre><code>pip install Pyproj</pre></code></li>
+							<li><pre><code>pip install Fiona</pre></code></li>
+							<li><pre><code>pip install Shapely</pre></code></li>
+							<li><pre><code>pip install GeoPandas</pre></code></li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>Write your script</h2>
+						<pre class="python"><code>import geopandas as gpd
+
+ports = gpd.read_file('C:/GIS/PirateData.gpkg',layer='World_Ports')
+wrecks = gpd.read_file('C:/GIS/PirateData.gpkg',layer='AWOIS_Wrecks')
+ports = ports.to_crs(3857)
+wrecks = wrecks.to_crs(3857)
+ports['geometry'] = ports.buffer(distance = 1000)
+joined_data = gpd.sjoin(ports, wrecks)
+group = joined_data.groupby(['MainPortName'])['MainPortName'].count().reset_index(name='wrecks')
+print(group.nlargest(5, 'wrecks'))
+						</code></pre>
+					</section>
+
+				<section>
+					<section>
+						<h2>Using PyQGIS</h2>
+					</section>
+				</section>	
+
+				<section>
+					<section>
+						<h2>Using ArcPy</h2>
+					</section>
+				</section>	
+
 				</section>
 
 				<section>
