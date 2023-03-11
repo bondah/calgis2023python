@@ -101,7 +101,6 @@
 					<p>Do not mix conda and pip installs!</p>
 				</section>
 
-				<section>
 					<section>
 						<h3>Common Issue </h3>
 						<p>If you can't find Python or pip, but know it is installed, they may not be entered into PATH.</p>
@@ -139,7 +138,6 @@
 							<p>Windows: <pre><code class="cmd">C:\>set PATH=C:\Program Files\Python 3.6;%PATH%</code></pre></p>
 						</p>
 					</section>
-				</section>
 
 				<section data-background-color="#B2BFC2">
 					<h2>Python within Desktop GIS</h2>
@@ -161,7 +159,7 @@
 				</section>
 
 				<section>
-					<h2>Data</h2>
+					<h2>🏴‍☠️ Data</h2>
 					<p>Today you will be a pirate!</p>
 					<p>Well be working with several nautical datasets:</p>
 					<ul>
@@ -180,13 +178,13 @@
 					<p>(ArcGIS Pro is very limited in Geopackage functionality)</p>
 				</section>
 
-				<section>
 					<section>
 						<h2>Data Cleanup</h2>
 						<p>Let's remove some pesky parenthesis in the field names.</p>
 						<img class="r-stretch" data-src="/images/cleanupfields.png">
 					</section>
 
+					<section>
 					<section>
 						<h2>QGIS</h2>
 						<p>Open the Python console inside QGIS desktop. Click on the Show Editor button to add your script.</p>
@@ -222,10 +220,11 @@ for field in layer.fields():
 							
 layer.commitChanges()</code></pre>
 					</section>
+					</section>
 
 					<section>
 						<h2>Regular Expressions</h2>
-						<p>Regeular Expressions (or regex for short) are handy ways to match/search.</p>
+						<p>Regular Expressions (or regex for short) are handy ways to match/search.</p>
 						<p>Like Python, there are lots of free resources to learn such as: <a href="https://regexr.com/">https://regexr.com/</a></p>
 						<pre><code class="python" data-line-numbers="1,7">import re
 layer = iface.activeLayer()
@@ -240,6 +239,7 @@ for field in layer.fields():
 						<p>Here we remove everything that isn't a number or letter.</p>
 					</section>
 
+					<section>
 					<section>
 						<h2>ArcGIS</h2>
 						<p>Open the Python console inside ArcGIS Pro.</p>
@@ -275,7 +275,31 @@ for field in fieldList:
 print("done")</code></pre>
 					</section>
 
-				<section>
+					<section>
+						<h2>Comments</h2>
+						<p>People often don't add comments to small scripts, but it is always a good idea!</p>
+						<p>If you intend to save the script for later (which you should), a few comments make it easier to understand.</p>
+						<pre><code class="python"># Select a feature class
+fc = 'World_Ports'
+# List all the fields in feature class
+fieldList = arcpy.ListFields(fc)
+# Loop through all the fields
+for field in fieldList:
+	fname = field.name
+	# Find the word "Communications" in the field name
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
+		# In-Place modication of the field name (caution!)
+		arcpy.AlterField_management(fc, field.name, new_name)
+print("done")</code></pre>
+					</section>
+
+					<section>
+						<h2>🥱 Break 🕑</h2>
+						<p>Time to step out of the room, stretch, and talk to your neighbor!</p>
+						<h2 style="color:darkgoldenrod"><countdown autostart="yes" /></h3>
+					</section>
+
 					<section>
 						<h2>Field Calculation</h2>
 						<p>Python can be a good way to do complex field calculations.</p>
@@ -283,12 +307,14 @@ print("done")</code></pre>
 					</section>
 
 					<section>
+					<section>
 						<h2>QGIS</h2>
 						<pre><code class="python">from qgis.core import *
 from qgis.gui import *
 							
 @qgsfunction(args='auto', group='Custom')
-def pirateports(depth, provisions, water, security, feature, parent):
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
 	depth = float(depth)
 	if (water =="No" or depth <= 6.0):
 		return "Avast!"
@@ -309,10 +335,13 @@ def pirateports(depth, provisions, water, security, feature, parent):
 					<section>
 						<h2>QGIS</h2>
 						<p>Then call your function from the Expression in Field Calculator.</p>
-						<pre><code>pirateports("Channel Depth", "Supplies - Provisions", "Supplies - Potable Water", "Port Security")</code></pre>
+						<pre><code>pirateports("Channel Depth", "Supplies - Provisions",\
+						"Supplies - Potable Water", "Port Security")</code></pre>
 						<img class="r-stretch" data-src="/images/qgisfield.png">
 					</section>
+					</section>
 
+					<section>
 					<section>
 						<h2>ArcGIS</h2>
 						<pre><code>
@@ -331,10 +360,16 @@ def pirateports(depth, provisions, water, security):
 					<section>
 						<h2>ArcGIS</h2>
 						<p>Open the attribute table and click Calculate Field. Add your script to Code Block and your function to Expression and Apply.</p>
-						<pre><code class="python">pirateports(!ChannelDepth!,!SuppliesProvisions!,!SuppliesPotable Water!,!Port Security!)</code></pre>
+						<pre><code class="python">pirateports(!ChannelDepth!,!SuppliesProvisions!,\
+						!SuppliesPotable Water!,!Port Security!)</code></pre>
 						<img class="r-stretch" data-src="/images/arcgisfield.png">
 					</section>
+					</section>
 
+				<section>
+					<h2>🥱 Break 🕑</h2>
+					<p>Time to step out of the room, stretch, and talk to your neighbor</p>
+					<h2 style="color:darkgoldenrod"><countdown autostart="yes" /></h3>
 				</section>
 
 				<section data-background-color="#B2BFC2">
@@ -457,11 +492,60 @@ print(group.nlargest(5, 'wrecks'))</code></pre>
 
 					<section>
 						<h2>Write your Script</h2>
-						<p>Open IDLE File/New and paste in:</p>
+						<p>First in QGIS copy and paste:</p>
+						<pre><code>import processing
+
+ports = 'C:/GIS/PirateData.gpkg|layername=World_Ports'
+wrecks = 'C:/GIS/PirateData.gpkg|layername=AWOIS_Wrecks'
+outputs = {}
+
+outputs['ReprojectWrecks'] = processing.run('native:reprojectlayer',\
+	{'INPUT': wrecks,
+		'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
+		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
+	})
+
+outputs['ReprojectPorts'] = processing.run('native:reprojectlayer',\
+	{'INPUT': ports,
+		'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
+		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
+	})
+
+outputs['Buffer'] = processing.run('native:buffer',\
+	{'DISSOLVE': False,
+		'DISTANCE': 1000,
+		'INPUT': outputs['ReprojectPorts']['OUTPUT'],
+		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
+	})
+
+outputs['CountPointsInPolygon'] = processing.run('native:countpointsinpolygon',\
+	{'CLASSFIELD': '',
+		'FIELD': 'wrecks',
+		'POINTS': outputs['ReprojectWrecks']['OUTPUT'],
+		'POLYGONS': outputs['Buffer']['OUTPUT'],
+		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
+	})
+
+request = qgis.core.QgsFeatureRequest()
+clause = qgis.core.QgsFeatureRequest.OrderByClause('wrecks', ascending=False)
+orderby = qgis.core.QgsFeatureRequest.OrderBy([clause])
+request.setOrderBy(orderby)
+
+lyr = outputs['CountPointsInPolygon']['OUTPUT']
+features = lyr.getFeatures(request)
+selected_columns = ['MainPortName','wrecks']
+
+for i, feature in enumerate(features):
+	if i < 10:
+		attrs = [feature.attribute(col) for col in selected_columns]
+		print(attrs)
+	else:
+		break
+print("done")</code></pre>
 					</section>
 
 					<section>
-						<h2>Stuck on pyQGIS?/h2>
+						<h2>Stuck on pyQGIS?</h2>
 						<p>Try stringing togeher your data and algorithms using Graphical Modeler.</p>
 						<p>Then export to Python and adjust from there.</p>
 						<img class="r-stretch" data-src="/images/graphicalmodeler.png">
@@ -476,6 +560,10 @@ print(group.nlargest(5, 'wrecks'))</code></pre>
 					</section>
 				</section>	
 
+				<section>
+					<h2>🥱 Break 🕑</h2>
+					<p>Time to step out of the room, stretch, and talk to your neighbor!</p>
+					<h2 style="color:darkgoldenrod"><countdown autostart="yes" /></h3>
 				</section>
 
 				<section data-background-color="#B2BFC2">
@@ -486,6 +574,19 @@ print(group.nlargest(5, 'wrecks'))</code></pre>
 				<section data-background-color="#B2BFC2">
 					<h2>Selecting the Right tool</h2>
 					<img class="r-stretch" data-src="/images/find.png">
+				</section>
+
+				<section>
+					<h2>Alternatives</h2>
+					<p>Probably the strongest contender for spatial data automation is FME.</p>
+				</section>
+
+				<section>
+					<h2>Who will use it?</h2>
+					<p>Think about who will want to use your script.</p>
+					<p>If it is not for people in your company, using open source options is the best path. (sorry ArcGIS Pro!)</p>
+					<br>
+					<p>Installing libraries can be frustrating, so think caefully about which ones you need to use.</p>
 				</section>
 
 				<section>
@@ -510,7 +611,13 @@ print(group.nlargest(5, 'wrecks'))</code></pre>
 				hash: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+
+				dependencies: [
+          		{ src: "plugin/countdown/countdown.js" },
+
+        		],
+        		countdown: { defaultTime: 600, autostart: "no"}
 			});
 		</script>
 	</body>
