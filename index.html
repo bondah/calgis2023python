@@ -17,7 +17,7 @@
 		<div class="reveal">
 			<div class="slides">
 
-				<section>
+				<section data-background-image="/images/python.png" data-background-size="contain" data-background-position="left">
 					<h1>Using Python with Geospatial Data: Overview of Tools</h1>
 				</section>
 
@@ -62,7 +62,7 @@
 					</ol>
 				</section>
 
-				<section>
+				<section  data-background-color="#B2BFC2">
 					<h2>Getting Started</h2>
 				</section>
 
@@ -103,8 +103,9 @@
 
 				<section>
 					<section>
-						<h3>Common Issue</h3>
+						<h3>Common Issue </h3>
 						<p>If you can't find Python or pip, but know it is installed, they may not be entered into PATH.</p>
+						<img class="r-stretch" data-src="/images/seamonster.png">
 					</section>
 
 					<section>
@@ -140,26 +141,40 @@
 					</section>
 				</section>
 
-				<section>
+				<section data-background-color="#B2BFC2">
 					<h2>Python within Desktop GIS</h2>
+					<img class="r-stretch" data-src="/images/compass.png">
 				</section>
 
 				<section>
 					<section>
 						<h2>A Pirate's Life for Me</h2>
 						<p>Monterey is known as the site of the only pirate attack in California history.</p>
-						<img data-src="/images/shipstamp.jpg">
+						<img class="r-stretch" data-src="/images/shipstamp.jpg">
 					</section>
 
 					<section>
 						<h2>History</h2>
 						<p></p>
-						<img data-src="/images/portrait.jpg">
+						<img class="r-stretch" data-src="/images/portrait.jpg">
 					</section>
 				</section>
 
 				<section>
 					<h2>Data</h2>
+					<p>Today you will be a pirate!</p>
+					<p>Well be working with several nautical datasets:</p>
+					<ul>
+						<li>World Ports: <a href="https://msi.nga.mil/Publications/WPI">NGA</a></li>
+						<li>Shipwrecks: <a href="https://nauticalcharts.noaa.gov/data/wrecks-and-obstructions.html">NOAA</a></li>
+						<li>Pirate Attacks: <a href="https://msi.nga.mil/Piracy">NGA</a></li>
+						<li>High Seas: <a href="https://www.marineregions.org/downloads.php">Flanders Marine Institute</a></li>
+					</ul>
+					<img class="r-stretch" data-src="/images/pirate.png">
+				</section>
+
+				<section>
+					<h2>Data Formats</h2>
 					<p>Data for QGIS Users is in the geopackage.</p>
 					<p>Data for ArcGIS Pro users is in the geodatabase.</p>
 					<p>(ArcGIS Pro is very limited in Geopackage functionality)</p>
@@ -169,13 +184,13 @@
 					<section>
 						<h2>Data Cleanup</h2>
 						<p>Let's remove some pesky parenthesis in the field names.</p>
-						<img data-src="/images/cleanupfields.png">
+						<img class="r-stretch" data-src="/images/cleanupfields.png">
 					</section>
 
 					<section>
 						<h2>QGIS</h2>
 						<p>Open the Python console inside QGIS desktop. Click on the Show Editor button to add your script.</p>
-						<img data-src="/images/qgisconsole.png">
+						<img class="r-stretch" data-src="/images/qgisconsole.png">
 					</section>
 
 					<section>
@@ -228,7 +243,7 @@ for field in layer.fields():
 					<section>
 						<h2>ArcGIS</h2>
 						<p>Open the Python console inside ArcGIS Pro.</p>
-						<img data-src="/images/arcgisconsole.png">
+						<img class="r-stretch" data-src="/images/arcgisconsole.png">
 					</section>
 
 					<section>
@@ -288,14 +303,14 @@ def pirateports(depth, provisions, water, security, feature, parent):
 					<section>
 						<h2>QGIS</h2>
 						<p>Add your script to the Function Editor and click Save and Load.</p>
-						<img data-src="/images/qgisfunction.png">
+						<img class="r-stretch" data-src="/images/qgisfunction.png">
 					</section>
 
 					<section>
 						<h2>QGIS</h2>
 						<p>Then call your function from the Expression in Field Calculator.</p>
 						<pre><code>pirateports("Channel Depth", "Supplies - Provisions", "Supplies - Potable Water", "Port Security")</code></pre>
-						<img data-src="/images/qgisfield.png">
+						<img class="r-stretch" data-src="/images/qgisfield.png">
 					</section>
 
 					<section>
@@ -317,18 +332,19 @@ def pirateports(depth, provisions, water, security):
 						<h2>ArcGIS</h2>
 						<p>Open the attribute table and click Calculate Field. Add your script to Code Block and your function to Expression and Apply.</p>
 						<pre><code class="python">pirateports(!ChannelDepth!,!SuppliesProvisions!,!SuppliesPotable Water!,!Port Security!)</code></pre>
-						<img data-src="/images/arcgisfield.png">
+						<img class="r-stretch" data-src="/images/arcgisfield.png">
 					</section>
 
 				</section>
 
-				<section>
+				<section data-background-color="#B2BFC2">
 					<h2>Standalone Python</h2>
+					<img class="r-stretch" data-src="/images/compass2.png">
 				</section>
 
 				<section>
 					<h2>Python for Spatial</h2>
-					<p>There are many spatial libraries for Python outside of those associated with ArcGIS and QGIS. Here are just a few:
+					<p>There are many spatial libraries for Python outside of those associated with ArcGIS and QGIS. Here are just a few:</p>
 						<ul>
 							<li>GDAL</li>
 							<li>OGR</li>
@@ -336,8 +352,13 @@ def pirateports(depth, provisions, water, security):
 							<li>Folium</li>
 							<li>LasPy</li>
 						</ul>
-					</p>
 					<p>We'll use GeoPandas today.</p>
+				</section>
+
+				<section>
+					<h2>To Pillage & Plunder</h2>
+					<p>In the upcoming examples we want to find ports with shipwrecks nearby that we can loot.</p>
+					<img class="r-stretch" data-src="/images/ship.png">
 				</section>
 
 				<section>
@@ -363,7 +384,8 @@ def pirateports(depth, provisions, water, security):
 
 					<section>
 						<h2>Write your script</h2>
-						<pre class="python"><code>import geopandas as gpd
+						<p>Open IDLE File/New and paste in:</p>
+						<pre class="python"><code data-overflow="wrap">import geopandas as gpd
 
 ports = gpd.read_file('C:/GIS/PirateData.gpkg',layer='World_Ports')
 wrecks = gpd.read_file('C:/GIS/PirateData.gpkg',layer='AWOIS_Wrecks')
@@ -371,15 +393,81 @@ ports = ports.to_crs(3857)
 wrecks = wrecks.to_crs(3857)
 ports['geometry'] = ports.buffer(distance = 1000)
 joined_data = gpd.sjoin(ports, wrecks)
-group = joined_data.groupby(['MainPortName'])['MainPortName'].count().reset_index(name='wrecks')
+group = joined_data.groupby(['MainPortName'])['MainPortName']\
+		.count().reset_index(name='wrecks')
 print(group.nlargest(5, 'wrecks'))
 						</code></pre>
 					</section>
 
+					<section>
+						<h2>Run</h2>
+						<p>Click Run, Run Module. You will need to sve the file.</p>
+						<p>You should see a table output in the Shell window:</p>
+						<img class="r-stretch" data-src="/images/shell.png">
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>What is the script doing?</p>
+						<p>First we import GeoPandas and give it an abbreviated name. We use GeoPandas use to read our geopackage data.</p>
+						<pre class="python"><code data-overflow="wrap">import geopandas as gpd
+	
+ports = gpd.read_file('C:/GIS/PirateData.gpkg'\ 
+		layer='World_Ports')
+wrecks = gpd.read_file('C:/GIS/PirateData.gpkg'\ 
+		layer='AWOIS_Wrecks')</code></pre>
+						<p>Note the "\" symbol just means a line break to make long lines easier to read.</p>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Next we convert it to a projected coordinate system.</p> 
+						<p>We don't need high accuracy, but we definitely don't want to leave it in decimal degrees.</p>
+						<pre class="python"><code>ports = ports.to_crs(3857)
+wrecks = wrecks.to_crs(3857)</code></pre>
+						<p>The number is the EPSG code: <a href="https://epsg.org/">https://epsg.org/</a></p>
+						<p>Note that the units are meters which is the distance value we will use on the next slide.</p>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>After that we buffer our ports. We reassign the buffer as the geometry in our ports dataframe so we get to keep all the attributes.</p> 
+						<p>Then, we spatial join to wrecks to get a count of wrecks within that distance of a port.</p>
+						<pre class="python"><code>ports['geometry'] = ports.buffer(distance = 1000)
+joined_data = gpd.sjoin(ports, wrecks)</code></pre>
+						<p>Try adjusting the buffer distance and re-running the model.</p>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Finally we group the data by Main Port Name and get a count of all the wrecks in each buffer area.</p>
+						<pre class="python"><code>group = joined_data.groupby(['MainPortName'])['MainPortName']\
+.count().reset_index(name='wrecks')
+print(group.nlargest(5, 'wrecks'))</code></pre>
+						<p>Try adjusting the number of table records returned in nlargest and re-running the model.</p>
+					</section>
+
+				</section>
+
 				<section>
 					<section>
 						<h2>Using PyQGIS</h2>
+						<p>You'll need QGIS installed to try this out.</p>
 					</section>
+
+					<section>
+						<h2>Write your Script</h2>
+						<p>Open IDLE File/New and paste in:</p>
+					</section>
+
+					<section>
+						<h2>Stuck on pyQGIS?/h2>
+						<p>Try stringing togeher your data and algorithms using Graphical Modeler.</p>
+						<p>Then export to Python and adjust from there.</p>
+						<img class="r-stretch" data-src="/images/graphicalmodeler.png">
+					</section>
+
+
 				</section>	
 
 				<section>
@@ -390,12 +478,14 @@ print(group.nlargest(5, 'wrecks'))
 
 				</section>
 
-				<section>
+				<section data-background-color="#B2BFC2">
 					<h2>Jupyter Notebooks</h2>
+					<img class="r-stretch" data-src="/images/compass3.png">
 				</section>
 
-				<section>
+				<section data-background-color="#B2BFC2">
 					<h2>Selecting the Right tool</h2>
+					<img class="r-stretch" data-src="/images/find.png">
 				</section>
 
 				<section>
