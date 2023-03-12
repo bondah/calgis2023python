@@ -486,39 +486,43 @@ print(group.nlargest(5, 'wrecks'))</code></pre>
 
 				<section>
 					<section>
-						<h2>Using PyQGIS</h2>
+						<h2>Standalone Using PyQGIS</h2>
 						<p>You'll need QGIS installed to try this out.</p>
 					</section>
 
 					<section>
 						<h2>Write your Script</h2>
 						<p>First in QGIS copy and paste:</p>
-						<pre><code>import processing
+						<pre><code  class="python">import processing
 
 ports = 'C:/GIS/PirateData.gpkg|layername=World_Ports'
 wrecks = 'C:/GIS/PirateData.gpkg|layername=AWOIS_Wrecks'
 outputs = {}
 
-outputs['ReprojectWrecks'] = processing.run('native:reprojectlayer',\
+outputs['ReprojectWrecks'] = processing.run\
+	('native:reprojectlayer',\
 	{'INPUT': wrecks,
 		'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
 		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
 	})
 
-outputs['ReprojectPorts'] = processing.run('native:reprojectlayer',\
+outputs['ReprojectPorts'] = processing.run\
+	('native:reprojectlayer',\
 	{'INPUT': ports,
 		'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
 		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
 	})
 
-outputs['Buffer'] = processing.run('native:buffer',\
+outputs['Buffer'] = processing.run\
+	('native:buffer',\
 	{'DISSOLVE': False,
 		'DISTANCE': 1000,
 		'INPUT': outputs['ReprojectPorts']['OUTPUT'],
 		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
 	})
 
-outputs['CountPointsInPolygon'] = processing.run('native:countpointsinpolygon',\
+outputs['CountPointsInPolygon'] = processing.run\
+	('native:countpointsinpolygon',\
 	{'CLASSFIELD': '',
 		'FIELD': 'wrecks',
 		'POINTS': outputs['ReprojectWrecks']['OUTPUT'],
@@ -527,7 +531,8 @@ outputs['CountPointsInPolygon'] = processing.run('native:countpointsinpolygon',\
 	})
 
 request = qgis.core.QgsFeatureRequest()
-clause = qgis.core.QgsFeatureRequest.OrderByClause('wrecks', ascending=False)
+clause = qgis.core.QgsFeatureRequest.\
+				OrderByClause('wrecks', ascending=False)
 orderby = qgis.core.QgsFeatureRequest.OrderBy([clause])
 request.setOrderBy(orderby)
 
@@ -535,9 +540,11 @@ lyr = outputs['CountPointsInPolygon']['OUTPUT']
 features = lyr.getFeatures(request)
 selected_columns = ['MainPortName','wrecks']
 
+i = 0
 for i, feature in enumerate(features):
 	if i < 10:
-		attrs = [feature.attribute(col) for col in selected_columns]
+		attrs = [feature.attribute(col)\
+						for col in selected_columns]
 		print(attrs)
 	else:
 		break
@@ -545,19 +552,109 @@ print("done")</code></pre>
 					</section>
 
 					<section>
+						<h2>Make it Standalone</h2>
+						<p>To make it standalone, we need to add some code before after our main script.</p>
+						<pre><code class="python">from qgis.core import *
+
+QgsApplication.setPrefixPath("/path/to/qgis", True)
+qgs = QgsApplication([], False)
+qgs.initQgis()
+
+# Insert main script here
+
+# Change the load layers
+ports = QGISVectorLayer('C:/GIS/PirateData.gpkg|/
+				layername=World_Ports', 'World_Ports', 'ogr')
+wrecks = QGISVectorLayer('C:/GIS/PirateData.gpkg|/
+				layername=AWOIS_Wrecks', 'AWOIS_Wrecks', 'ogr')
+
+qgs.exitQgis()
+						</code></pre>
+					</section>
+
+					<section>
 						<h2>Stuck on pyQGIS?</h2>
-						<p>Try stringing togeher your data and algorithms using Graphical Modeler.</p>
+						<p>Try stringing together your data and algorithms using Graphical Modeler.</p>
 						<p>Then export to Python and adjust from there.</p>
 						<img class="r-stretch" data-src="/images/graphicalmodeler.png">
 					</section>
 
+					<section>
+						<h2>Still Stuck?</h2>
+						<p>Try ChatGPT:</p>
+						<img class="r-stretch" data-src="/images/chatgpt.png">
+					</section>
 
 				</section>	
 
 				<section>
 					<section>
-						<h2>Using ArcPy</h2>
+						<h2>Standalone Using ArcPy</h2>
+						<p>First in ArcGIS Pro, copy and paste:</p>
+						<pre><code class="python">import arcpy
+
+arcpy.env.workspace = r"C:\GIS\output.gdb"
+arcpy.env.overwriteOutput = True
+
+ports = r"C:\GIS\PirateData.gdb\World_Ports"
+wrecks = r"C:\GIS\PirateData.gdb\AWOIS_Wrecks"
+
+ports_projected = arcpy.management.Project(ports,\
+				  "ports_projected", arcpy.SpatialReference(3395))
+wrecks_projected = arcpy.management.Project(wrecks,\
+				  "wrecks_projected", arcpy.SpatialReference(3395))
+
+buffer_distance = "1000 Meters"
+port_buffer = arcpy.analysis.Buffer(ports_projected,\
+			  "port_buffer", buffer_distance)
+
+spatial_join = arcpy.analysis.SpatialJoin(port_buffer,\
+			   wrecks_projected, "port_wrecks",\
+			   join_operation="JOIN_ONE_TO_MANY",\
+			   match_option="INTERSECT")
+
+output_table = arcpy.analysis.Statistics(spatial_join,\
+			  "point_count", [["WorldPortIndexNumber", "COUNT"]],\
+			  "WorldPortIndexNumber")
+
+arcpy.management.JoinField(port_buffer, "WorldPortIndexNumber",\
+			output_table, "WorldPortIndexNumber")
+
+output_fc = "top_10_buffers"
+arcpy.management.Sort(port_buffer, output_fc,\
+			[["COUNT_WorldPortIndexNumber", "DESCENDING"]])
+
+fields = ['MainPortName','COUNT_WorldPortIndexNumber']
+with arcpy.da.SearchCursor(output_fc, fields) as cursor:
+	for i in range(10):
+		for row in cursor:
+			print(f'{row[0]},{row[1]}')
+			break</code></pre>
 					</section>
+
+					<section>
+						<h2>It's Standalone!</h2>
+						<p>Unlike QGIS, you don't need to change anything to run this script outside of ArcGIS Pro other than savingit with a .py extension.</p>
+						<p>Since you might have multiple instances of Python, the best bet is to open the one that is installed with ArcGIS Pro:</p>
+						<pre><code>C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe</code></pre>
+						<p>Then enter this in the Python Interpreter to run your script:</p>
+						<pre><code class="cmd">exec(open("C:/GIS/myfile.py").read(), globals())</code></pre>
+					</section>
+
+					<section>
+						<h2>Stuck on ArcPy?</h2>
+						<p>Try stringing together your data and tools using Model builder.</p>
+						<p>Then export to Python and adjust from there.</p>
+						<img class="r-stretch" data-src="/images/modelbuilder.png">
+					</section>
+
+					<section>
+						<h2>Still Stuck?</h2>
+						<p>Try ChatGPT:</p>
+						<img class="r-stretch" data-src="/images/chatgptarcpy.png">
+						<p>In my limited testing, the results for ArcPy were not as good as those for PyQGIS.</p>
+					</section>
+
 				</section>	
 
 				<section>
