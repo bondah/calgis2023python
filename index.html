@@ -41,6 +41,16 @@
 				</section>
 
 				<section>
+					<h2>Workshop General Info</h2>
+					<ul>
+						<li>We'll have 3, 10-min breaks, but feel free to step out anytime you need to.</li>
+						<li>We'll allow time for you to follow along on examples.</li>
+						<li>Anytime we pause, feel free to talk through the example with your neighbor.</li>
+						<li>Please ask questions!</li>
+					</ul>
+				</section>
+
+				<section>
 					<h3>Why is Python so awesome for geospatial?</h3>
 					<ul>
 						<li>Approachable programming language</li>
@@ -64,13 +74,15 @@
 
 				<section  data-background-color="#B2BFC2">
 					<h2>Getting Started</h2>
+					<img class="r-stretch" data-src="images/lighthouse.png">
 				</section>
 
 				<section>
 					<h3>Python Installation</h3>
 					<p>Python 3 comes with ArcGIS Pro and QGIS 3.x (and other software as well).</p>
+					<br>
 					<p>You can also install a standalone copy: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
-					<p>To avoid issues, if you want to follow along on the standalone Python and some Jupyter examples, standalone is reccomended.</p>
+					<br>
 					<p>Check if Python 3 is installed by opening terminal/command prompt and entering:</p>
 					<pre class="cmd"><code>python3 --version</code></pre>
 				</section>
@@ -78,6 +90,7 @@
 				<section>
 					<h3>Packages</h3>
 					<p>Your standard Python install comes with many libraries (reusable code), but you will likely need to add some additional packages.</p>
+					<br>
 					<p>You can use pip or conda to install new packages.</p>
 				</section>
 
@@ -85,6 +98,7 @@
 					<h3>pip</h3>
 					<p>Check if pip is installed by opening terminal/command prompt and entering:</p>
 					<pre><code class="cmd">pip --version</code></pre>
+					<br>
 					<p>If you don't see pip, install by entering:</p>
 						<p>Mac/Linux: <pre><code class="cmd">python -m ensurepip --upgrade</code></pre></p>
 						<p>Windows: <pre><code class="cmd">py -m ensurepip --upgrade</code></pre></p>	
@@ -95,6 +109,7 @@
 					<h3>conda</h3>
 					<p>You are less likely to have conda already installed than pip. Conda is beneficial because it does well handling dependencies.</p>
 					<p>It also can be troublesome with multiple installs.</p>
+					<br>
 					<p><a href="https://docs.conda.io/en/latest/miniconda.html#installing">Install Miniconda</a></p>
 					<p>Check your install by opening Terminal/Command and typing:</p>
 					<pre class="cmd"><code>conda list</code></pre>
@@ -104,15 +119,14 @@
 					<section>
 						<h3>Common Issue </h3>
 						<p>If you can't find Python or pip, but know it is installed, they may not be entered into PATH.</p>
-						<img class="r-stretch" data-src="images/seamonster.png">
+						<img style = "filter:invert(60%)" class="r-stretch" data-src="images/seamonster.png">
 					</section>
 
 					<section>
 						<h3>PATH: Windows</h3>
 							<ul>
-								<li>Right-click This PC and going to Properties.</li>
-								<li>Click on Advanced system settings in the menu on the left.</li>
-								<li>Click on Environment Variables button on the bottom right.</li>
+								<li>Search for Path and click Edit the System Environment Variables.</li>
+								<li>Click on the Environment Variables button on the bottom right.</li>
 								<li>In the System variables section, select the Path variable and click Edit. The next screen will show all the directories that are currently a part of the PATH variable.</li>
 								<li>Click on New and enter your Python install directory.</li>
 							</ul>
@@ -132,10 +146,10 @@
 					</section>
 
 					<section>
-						<h3>Temporary PATH settings</h3>
+						<h3>PATH settings from Command</h3>
 						<p>If your computer is very restricted and you can't edit PATH, you can temporarily set it in Terminal/Command.
 							<p>Mac/Linux: <pre><code class="cmd">export PATH="$PATH:/usr/local/bin/python"</code></pre></p>
-							<p>Windows: <pre><code class="cmd">C:\>set PATH=C:\Program Files\Python 3.6;%PATH%</code></pre></p>
+							<p>Windows: <pre><code class="cmd">set PATH=C:\Program Files\Python 3.7;%PATH%</code></pre></p>
 						</p>
 					</section>
 
@@ -153,8 +167,9 @@
 
 					<section>
 						<h2>History</h2>
-						<p></p>
+						<p>Hipolito Bouchard was a privateer (i.e. government sanctioned pirate) who attacked Monterey in 1818.</p>
 						<img class="r-stretch" data-src="images/portrait.jpg">
+						<p>Read more about his exploits here: <a href="http://mchsmuseum.com/bouchard.html">Monterey Historical Society</a> or a colorful essay here: <a href="https://www.montereycountyweekly.com/news/local_news/the-buccaneer-spirit-once-lived-in-our-waters-briefly/article_9eaa0407-1629-5b22-9de1-642326fd696f.html">Monterey County Weekly</a></p>
 					</section>
 				</section>
 
@@ -168,12 +183,13 @@
 						<li>Pirate Attacks: <a href="https://msi.nga.mil/Piracy">NGA</a></li>
 						<li>High Seas: <a href="https://www.marineregions.org/downloads.php">Flanders Marine Institute</a></li>
 					</ul>
-					<img class="r-stretch" data-src="images/pirate.png">
+					<img style = "filter:invert(60%)" class="r-stretch" data-src="images/pirate.png">
 				</section>
 
 				<section>
 					<h2>Data Formats</h2>
-					<p>Data for QGIS Users is in the geopackage.</p>
+					<p>Data for QGIS users is in the geopackage.</p>
+					<br>
 					<p>Data for ArcGIS Pro users is in the geodatabase.</p>
 					<p>(ArcGIS Pro is very limited in Geopackage functionality)</p>
 				</section>
@@ -193,7 +209,8 @@
 
 					<section>
 						<h2>QGIS</h2>
-						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Click Run.</p>
+						<p>Add World_Ports from the geopackage.</p>
+						<p>Select the World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Click Run.</p>
 						<pre><code class="python">layer = iface.activeLayer()
 layer.startEditing()
 							
@@ -206,6 +223,87 @@ for field in layer.fields():
 layer.commitChanges()</code></pre>
 					</section>
 			
+					<section>
+						<h2>Break it Down</h2>
+						<p>This script remove the "(m)" from field names. The parenthesis seemed to cause a problem with field calculations.</p>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>First we indicate this function will be performed on the active layer and start editing it in-place.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="1">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		idx = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(idx, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Next we loop through all the fields in the layer.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="4">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		idx = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(idx, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Then we look for fields that end with (m)</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="5">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		idx = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(idx, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>We assign the existing field name to a variable and create a 2nd variable to hold the new field name which is the old minus the last 4 characters.</p>
+						<p>We then rename the field by using these variables.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="6,7,8">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		old_name = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(old_name, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Finally, we save our edits.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="10">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		old_name = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(old_name, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
 					<section>
 						<h2>QGIS</h2>
 						<p>Because ArcGIS Pro is very sensitive, I also cleaned up the field names to make them exportable to geodatabase.</p>
@@ -248,8 +346,47 @@ for field in layer.fields():
 
 					<section>
 						<h2>ArcGIS</h2>
+						<p>Add World_Ports from the geodatabase.</p>
 						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Press enter twice to run.</p>
 						<pre><code class="python">fc = 'World_Ports'
+fieldList = arcpy.ListFields(fc)
+for field in fieldList:
+	fname = field.name
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
+		arcpy.AlterField_management(fc, field.name, new_name)</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>This script finds fields with "Communications" in the name and replaces that text with Comms. There's no particular need to do this (I just wanted an ArcGIS example!).</p>
+						<br>
+						<p>First we list all the field names in the World_Ports layer.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="1,2">fc = 'World_Ports'
+fieldList = arcpy.ListFields(fc)
+for field in fieldList:
+	fname = field.name
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
+		arcpy.AlterField_management(fc, field.name, new_name)</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Then we loop through all the field names.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="3,4">fc = 'World_Ports'
+fieldList = arcpy.ListFields(fc)
+for field in fieldList:
+	fname = field.name
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
+		arcpy.AlterField_management(fc, field.name, new_name)</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Finally, if we find the word "Communications" we replace it with Comms.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="5,6,7">fc = 'World_Ports'
 fieldList = arcpy.ListFields(fc)
 for field in fieldList:
 	fname = field.name
@@ -309,6 +446,7 @@ print("done")</code></pre>
 					<section>
 					<section>
 						<h2>QGIS</h2>
+						<p>Copy this script.</p>
 						<pre><code class="python">from qgis.core import *
 from qgis.gui import *
 							
@@ -328,7 +466,7 @@ def pirateports(depth, provisions, water, security,\
 
 					<section>
 						<h2>QGIS</h2>
-						<p>Add your script to the Function Editor and click Save and Load.</p>
+						<p>Open Field Calculator in QGIS. Add your script to the Function Editor and click Save and Load.</p>
 						<img class="r-stretch" data-src="images/qgisfunction.png">
 					</section>
 
@@ -339,11 +477,156 @@ def pirateports(depth, provisions, water, security,\
 						"Supplies - Potable Water", "Port Security")</code></pre>
 						<img class="r-stretch" data-src="images/qgisfield.png">
 					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>This script goes through a few logic steps and assigns a value.</p>
+						<pre data-cc="false"><code class="python">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>We import some QGIS libraries.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="1,2-4">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Then we define a name for our function and assign the inputs to variables. QGIS needs the feature and parent variables even though we don't supply them when we run the expression.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="5,6">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>In order to do math, we let it know depth is decimal. We need access to fresh water and at least 6m depth for our ship.</p>
+						<p>If a port doesn't have those essentials, it is a definite no (Avast!).</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="7,8,9">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Since we are pirates, having port securoty isn't ideal.</p>
+						<p>These are a soft no (Avast).</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="10,11">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>It would be nice to restock our stores and get water at the same time.</p>
+						<p>These ports are a hearty yes (Aye!).</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="12,13">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Finally if we haven't eliminated the port or confirmed it is a great option, it is a soft yes (Aye).</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="14,15">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
 					</section>
 
 					<section>
 					<section>
 						<h2>ArcGIS</h2>
+						<p>Copy this code.</p>
 						<pre><code>
 def pirateports(depth, provisions, water, security):
 	depth = float(depth)
@@ -364,6 +647,25 @@ def pirateports(depth, provisions, water, security):
 						!SuppliesPotable Water!,!Port Security!)</code></pre>
 						<img class="r-stretch" data-src="images/arcgisfield.png">
 					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>See QGIS section, unlike tools/algorithms, Python logic is exactly the same between the two softwares.</p>
+						<p>The only difference is we don't need feature parent and we add ! instead of " to the field names in the expression.</p>
+						<pre data-cc="false"><code data-line-numbers="1">def pirateports(depth, provisions, water, security):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+						<pre data-cc="false"><code class="python">pirateports(!ChannelDepth!,!SuppliesProvisions!,\
+				!SuppliesPotable Water!,!Port Security!)</code></pre>
+					</section>
+
 					</section>
 
 				<section>
@@ -378,6 +680,13 @@ def pirateports(depth, provisions, water, security):
 				</section>
 
 				<section>
+					<h2>Why Standalone?</h2>
+					<p>Standalone Python scripts are handy if you need it to run without opening desktop software.</p>
+					<br>
+					<p>They are also used for integrating many different types of applications and making your own application.</p>
+				</section>
+
+				<section>
 					<h2>Python for Spatial</h2>
 					<p>There are many spatial libraries for Python outside of those associated with ArcGIS and QGIS. Here are just a few:</p>
 						<ul>
@@ -387,13 +696,13 @@ def pirateports(depth, provisions, water, security):
 							<li>Folium</li>
 							<li>LasPy</li>
 						</ul>
-					<p>We'll use GeoPandas today.</p>
+					<p>We'll use <a href="https://geopandas.org/">GeoPandas</a> today.</p>
 				</section>
 
 				<section>
 					<h2>To Pillage & Plunder</h2>
 					<p>In the upcoming examples we want to find ports with shipwrecks nearby that we can loot.</p>
-					<img class="r-stretch" data-src="images/ship.png">
+					<img style = "filter:invert(60%)" class="r-stretch" data-src="images/ship.png">
 				</section>
 
 				<section>
@@ -402,7 +711,7 @@ def pirateports(depth, provisions, water, security):
 						<p>First, you'll need all the dependencies.</p>
 						<p>If you've commited to conda, open Terminal/Command and enter:</p>
 						<pre class="cmd"><code>conda install geopandas</code></pre>
-						<p>Skip ahead if you prefer pip.</p>
+						<p>Skip down if you prefer pip.</p>
 					</section>
 
 					<section>
@@ -420,23 +729,25 @@ def pirateports(depth, provisions, water, security):
 					<section>
 						<h2>Write your script</h2>
 						<p>Open IDLE File/New and paste in:</p>
-						<pre class="python"><code data-overflow="wrap">import geopandas as gpd
-
+						<pre><code class="python" data-overflow="wrap">import geopandas as gpd
 ports = gpd.read_file('C:/GIS/PirateData.gpkg',layer='World_Ports')
 wrecks = gpd.read_file('C:/GIS/PirateData.gpkg',layer='AWOIS_Wrecks')
-ports = ports.to_crs(3857)
-wrecks = wrecks.to_crs(3857)
+ports = ports.to_crs(3395)
+wrecks = wrecks.to_crs(3395)
 ports['geometry'] = ports.buffer(distance = 1000)
 joined_data = gpd.sjoin(ports, wrecks)
-group = joined_data.groupby(['MainPortName'])['MainPortName']\
-		.count().reset_index(name='wrecks')
-print(group.nlargest(5, 'wrecks'))
-						</code></pre>
+
+group = joined_data.groupby(['WorldPortIndexNumber',\
+		'MainPortName']).size()\
+		.sort_values(ascending=False)\
+		.reset_index(name='wrecks')\
+		.drop_duplicates(subset='MainPortName')
+print(group.nlargest(10, 'wrecks'))</code></pre>
 					</section>
 
 					<section>
 						<h2>Run</h2>
-						<p>Click Run, Run Module. You will need to sve the file.</p>
+						<p>Click Run, Run Module. You will need to save the file.</p>
 						<p>You should see a table output in the Shell window:</p>
 						<img class="r-stretch" data-src="images/shell.png">
 					</section>
@@ -444,8 +755,8 @@ print(group.nlargest(5, 'wrecks'))
 					<section>
 						<h2>Break it Down</h2>
 						<p>What is the script doing?</p>
-						<p>First we import GeoPandas and give it an abbreviated name. We use GeoPandas use to read our geopackage data.</p>
-						<pre class="python"><code data-overflow="wrap">import geopandas as gpd
+						<p>First we import GeoPandas and give it an abbreviated name. We use GeoPandas to read our geopackage data.</p>
+						<pre data-cc="false"><code class="python" data-overflow="wrap">import geopandas as gpd
 	
 ports = gpd.read_file('C:/GIS/PirateData.gpkg'\ 
 		layer='World_Ports')
@@ -458,8 +769,8 @@ wrecks = gpd.read_file('C:/GIS/PirateData.gpkg'\
 						<h2>Break it Down</h2>
 						<p>Next we convert it to a projected coordinate system.</p> 
 						<p>We don't need high accuracy, but we definitely don't want to leave it in decimal degrees.</p>
-						<pre class="python"><code>ports = ports.to_crs(3857)
-wrecks = wrecks.to_crs(3857)</code></pre>
+						<pre data-cc="false"><code class="python">ports = ports.to_crs(3395)
+wrecks = wrecks.to_crs(3395)</code></pre>
 						<p>The number is the EPSG code: <a href="https://epsg.org/">https://epsg.org/</a></p>
 						<p>Note that the units are meters which is the distance value we will use on the next slide.</p>
 					</section>
@@ -468,17 +779,20 @@ wrecks = wrecks.to_crs(3857)</code></pre>
 						<h2>Break it Down</h2>
 						<p>After that we buffer our ports. We reassign the buffer as the geometry in our ports dataframe so we get to keep all the attributes.</p> 
 						<p>Then, we spatial join to wrecks to get a count of wrecks within that distance of a port.</p>
-						<pre class="python"><code>ports['geometry'] = ports.buffer(distance = 1000)
+						<pre data-cc="false"><code class="python">ports['geometry'] = ports.buffer(distance = 1000)
 joined_data = gpd.sjoin(ports, wrecks)</code></pre>
 						<p>Try adjusting the buffer distance and re-running the model.</p>
 					</section>
 
 					<section>
 						<h2>Break it Down</h2>
-						<p>Finally we group the data by Main Port Name and get a count of all the wrecks in each buffer area.</p>
-						<pre class="python"><code>group = joined_data.groupby(['MainPortName'])['MainPortName']\
-.count().reset_index(name='wrecks')
-print(group.nlargest(5, 'wrecks'))</code></pre>
+						<p>Finally we group the data by World Port Index & Main Port Name and get a count of all the wrecks in each buffer area.</p>
+						<pre data-cc="false"><code class="python">group = joined_data.groupby(['WorldPortIndexNumber',\
+				'MainPortName']).size()
+				.sort_values(ascending=False)\
+				.reset_index(name='count')\
+				.drop_duplicates(subset='MainPortName')
+print(group.nlargest(10, 'count'))</code></pre>
 						<p>Try adjusting the number of table records returned in nlargest and re-running the model.</p>
 					</section>
 
@@ -488,6 +802,7 @@ print(group.nlargest(5, 'wrecks'))</code></pre>
 					<section>
 						<h2>Standalone Using PyQGIS</h2>
 						<p>You'll need QGIS installed to try this out.</p>
+						<img style = "filter:invert(60%)" class="r-stretch" data-src="images/ship2.png">
 					</section>
 
 					<section>
@@ -538,7 +853,7 @@ request.setOrderBy(orderby)
 
 lyr = outputs['CountPointsInPolygon']['OUTPUT']
 features = lyr.getFeatures(request)
-selected_columns = ['MainPortName','wrecks']
+selected_columns = ['WorldPortIndexNumber','MainPortName','wrecks']
 
 i = 0
 for i, feature in enumerate(features):
@@ -634,7 +949,7 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 
 					<section>
 						<h2>It's Standalone!</h2>
-						<p>Unlike QGIS, you don't need to change anything to run this script outside of ArcGIS Pro other than savingit with a .py extension.</p>
+						<p>Unlike QGIS, you don't need to change anything to run this script outside of ArcGIS Pro other than saving it with a .py extension.</p>
 						<p>Since you might have multiple instances of Python, the best bet is to open the one that is installed with ArcGIS Pro:</p>
 						<pre><code>C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe</code></pre>
 						<p>Then enter this in the Python Interpreter to run your script:</p>
@@ -666,6 +981,119 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 				<section data-background-color="#B2BFC2">
 					<h2>Jupyter Notebooks</h2>
 					<img class="r-stretch" data-src="images/compass3.png">
+				</section>
+
+				<section>
+					<h2>Jupyter Notebook</h2>
+					<p>From <a href="https://jupyter.org/">Jupyter.org</a>:</p>
+					<blockquote cite="https://jupyter.org/">
+						The Jupyter Notebook is the original web application for creating and sharing computational documents. It offers a simple, streamlined, document-centric experience.
+					</blockquote>
+				</section>
+
+				<section>
+					<h2>Jupyter Notebook</h2>
+					<p>Basically it is a really handy way to show and share your work.</p>
+					<p>It also is a friendly way to test your own code and explore data.</p>
+				</section>
+
+				<section>
+					<h2>Jupyter Notebook</h2>
+					<p>Open Jupyter Notebook either within ArcGIS Pro, or by opening a command prompt and typing:</p>
+					<pre><code>jupyter notebook</code></pre>
+					<br>
+					<p>For the first example, we'll be using GeoPandas again, so open the notebook from the same Python install where that package is saved.</p>
+				</section>
+
+				<section>
+					<h2>Pirate Attacks on the High Seas</h2>
+					<p>The high seas are parts of the ocean not controlled by any country. This seems like an ideal space for a pirate to attack another ship.</p>
+					<img style = "filter:invert(60%)" class="r-stretch" data-src="images/ship2.png">
+					<p>In this example we'll determine the number of attacks that take place in the high seas.</p>
+				</section>
+
+				<section>
+				<section>
+					<h2>GeoPandas Notebook</h2>
+					<p>Create a new notebook by clicking the new button on the upper right and selecting Python 3.</p>
+					<img class="r-stretch" data-src="images/notebook.png">
+					<p>You'll see a window with an "In" cell where you will enter your first bit of code.</p>
+					<pre><code class="python">import geopandas as gpd</code></pre>
+				</section>
+
+				<section>
+					<h2>GeoPandas Notebook</h2>
+					<p>Next, let's import our files.</p>
+					<br>
+					<p>We're adding the pirate attacks and the high seas extents.</p>
+					<pre><code class="python">import geopandas as gpd
+
+attacks = gpd.read_file('C:/GIS/PirateData.gpkg',layername='ASAM_Events')
+seas = gpd.read_file('C:/GIS/PirateData.gpkg',layername='High_Seas')</code></pre>
+				</section>
+
+				<section>
+					<h2>GeoPandas Notebook</h2>
+					<p>Then we will use head to show us a sample of our attacks data.</p>
+					<pre><code class="python">import geopandas as gpd\
+import matplotlib.pyplot as plt
+
+attacks = gpd.read_file('C:/GIS/PirateData.gpkg',\
+		layer='ASAM_Events')
+seas = gpd.read_file('C:/GIS/PirateData.gpkg',\
+		layer='High_Seas')
+
+attacks.head()</code></pre>
+					<p>Go ahead and click the Run button and you should see some sample data.</p>
+				</section>
+
+				<section>
+					<h2>GeoPandas Notebook</h2>
+					<p>Leave your first cell as it is and go to the next one (running should have generated a new cell below your output).</p>
+					<br>
+					<p>We'll continue our script.</p>
+					<pre><code class="python">attacks.explore()</code></pre>
+					<p>Click Run and you can enjoy an interactive map!</p>
+				</section>
+
+				<section>
+					<h2>GeoPandas Notebook</h2>
+					<p>Go to the next cell and enter:</p>
+					<pre><code class="python">print("attacks = ", len(attacks))
+print("high seas areas = ", len(seas))</code></pre>
+					<p>Click Run.</p>
+					<br>
+					<p>We get the number of records in each dataset. We wrap them in a pront command so we can run both together.</p>
+				</section>
+
+				<section>
+					<h2>GeoPandas Notebook</h2>
+					<p>Go to the next cell and enter:</p>
+					<pre><code class="python">fig, ax = plt.subplots(figsize=(15, 15))
+seas.plot(ax=ax)
+attacks.plot(ax=ax, alpha=0.7, color="red")</code></pre>
+					<p>Click Run.</p>
+					<br>
+					<p>In this case we have created a static map that can be exported to an image.</p>
+				</section>
+
+				<section>
+					<h2>GeoPandas Notebook</h2>
+					<p>Thinking back to our first GeoPandas example, how would you update the coordinate system and do a spatial join?</p>
+				</section>
+
+				<section>
+					<h2>GeoPandas Notebook</h2>
+					<p>Here's the solution:</p>
+					<pre><code class="python">attacks = attacks.to_crs(3395)
+seas = seas.to_crs(3395)
+joined_data = gpd.sjoin(seas, attacks)
+print(len(joined_data))
+print("Percent attacks on the high seas: ",\
+round((len(joined_data)/len(attacks))*100,2))</code></pre>
+					<p>We print out the number of records and can see out of 8771 total attacks, 464 were on the high_seas.</p>
+				</section>
+
 				</section>
 
 				<section data-background-color="#B2BFC2">
@@ -700,6 +1128,8 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+		<script src="plugin/copycode/copycode.js"></script>
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
@@ -708,7 +1138,7 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 				hash: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, CopyCode ],
 
 				dependencies: [
           		{ src: "plugin/countdown/countdown.js" },
