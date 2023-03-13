@@ -41,6 +41,16 @@
 				</section>
 
 				<section>
+					<h2>Workshop General Info</h2>
+					<ul>
+						<li>We'll have 3, 10-min breaks, but feel free to step out anytime you need to.</li>
+						<li>We'll allow time for you to follow along on examples.</li>
+						<li>Anytime we pause, feel free to talk through the example with your neighbor.</li>
+						<li>Please ask questions!</li>
+					</ul>
+				</section>
+
+				<section>
 					<h3>Why is Python so awesome for geospatial?</h3>
 					<ul>
 						<li>Approachable programming language</li>
@@ -64,13 +74,15 @@
 
 				<section  data-background-color="#B2BFC2">
 					<h2>Getting Started</h2>
+					<img class="r-stretch" data-src="images/lighthouse.png">
 				</section>
 
 				<section>
 					<h3>Python Installation</h3>
 					<p>Python 3 comes with ArcGIS Pro and QGIS 3.x (and other software as well).</p>
+					<br>
 					<p>You can also install a standalone copy: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
-					<p>To avoid issues, if you want to follow along on the standalone Python and some Jupyter examples, standalone is reccomended.</p>
+					<br>
 					<p>Check if Python 3 is installed by opening terminal/command prompt and entering:</p>
 					<pre class="cmd"><code>python3 --version</code></pre>
 				</section>
@@ -78,6 +90,7 @@
 				<section>
 					<h3>Packages</h3>
 					<p>Your standard Python install comes with many libraries (reusable code), but you will likely need to add some additional packages.</p>
+					<br>
 					<p>You can use pip or conda to install new packages.</p>
 				</section>
 
@@ -85,6 +98,7 @@
 					<h3>pip</h3>
 					<p>Check if pip is installed by opening terminal/command prompt and entering:</p>
 					<pre><code class="cmd">pip --version</code></pre>
+					<br>
 					<p>If you don't see pip, install by entering:</p>
 						<p>Mac/Linux: <pre><code class="cmd">python -m ensurepip --upgrade</code></pre></p>
 						<p>Windows: <pre><code class="cmd">py -m ensurepip --upgrade</code></pre></p>	
@@ -95,6 +109,7 @@
 					<h3>conda</h3>
 					<p>You are less likely to have conda already installed than pip. Conda is beneficial because it does well handling dependencies.</p>
 					<p>It also can be troublesome with multiple installs.</p>
+					<br>
 					<p><a href="https://docs.conda.io/en/latest/miniconda.html#installing">Install Miniconda</a></p>
 					<p>Check your install by opening Terminal/Command and typing:</p>
 					<pre class="cmd"><code>conda list</code></pre>
@@ -110,9 +125,8 @@
 					<section>
 						<h3>PATH: Windows</h3>
 							<ul>
-								<li>Right-click This PC and going to Properties.</li>
-								<li>Click on Advanced system settings in the menu on the left.</li>
-								<li>Click on Environment Variables button on the bottom right.</li>
+								<li>Search for Path and click Edit the System Environment Variables.</li>
+								<li>Click on the Environment Variables button on the bottom right.</li>
 								<li>In the System variables section, select the Path variable and click Edit. The next screen will show all the directories that are currently a part of the PATH variable.</li>
 								<li>Click on New and enter your Python install directory.</li>
 							</ul>
@@ -132,10 +146,10 @@
 					</section>
 
 					<section>
-						<h3>Temporary PATH settings</h3>
+						<h3>PATH settings from Command</h3>
 						<p>If your computer is very restricted and you can't edit PATH, you can temporarily set it in Terminal/Command.
 							<p>Mac/Linux: <pre><code class="cmd">export PATH="$PATH:/usr/local/bin/python"</code></pre></p>
-							<p>Windows: <pre><code class="cmd">C:\>set PATH=C:\Program Files\Python 3.6;%PATH%</code></pre></p>
+							<p>Windows: <pre><code class="cmd">set PATH=C:\Program Files\Python 3.7;%PATH%</code></pre></p>
 						</p>
 					</section>
 
@@ -153,8 +167,9 @@
 
 					<section>
 						<h2>History</h2>
-						<p></p>
+						<p>Hipolito Bouchard was a privateer (i.e. government sanctioned pirate) who attacked Monterey in 1818.</p>
 						<img class="r-stretch" data-src="images/portrait.jpg">
+						<p>Read more about his exploits here: <a href="http://mchsmuseum.com/bouchard.html">Monterey Historical Society</a> or a colorful essay here: <a href="https://www.montereycountyweekly.com/news/local_news/the-buccaneer-spirit-once-lived-in-our-waters-briefly/article_9eaa0407-1629-5b22-9de1-642326fd696f.html">Monterey County Weekly</a></p>
 					</section>
 				</section>
 
@@ -173,7 +188,8 @@
 
 				<section>
 					<h2>Data Formats</h2>
-					<p>Data for QGIS Users is in the geopackage.</p>
+					<p>Data for QGIS users is in the geopackage.</p>
+					<br>
 					<p>Data for ArcGIS Pro users is in the geodatabase.</p>
 					<p>(ArcGIS Pro is very limited in Geopackage functionality)</p>
 				</section>
@@ -193,7 +209,8 @@
 
 					<section>
 						<h2>QGIS</h2>
-						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Click Run.</p>
+						<p>Add World_Ports from the geopackage.</p>
+						<p>Select the World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Click Run.</p>
 						<pre><code class="python">layer = iface.activeLayer()
 layer.startEditing()
 							
@@ -206,6 +223,87 @@ for field in layer.fields():
 layer.commitChanges()</code></pre>
 					</section>
 			
+					<section>
+						<h2>Break it Down</h2>
+						<p>This script remove the "(m)" from field names. The parenthesis seemed to cause a problem with field calculations.</p>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>First we indicate this function will be performed on the active layer and start editing it in-place.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="1">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		idx = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(idx, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Next we loop through all the fields in the layer.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="4">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		idx = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(idx, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Then we look for fields that end with (m)</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="5">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		idx = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(idx, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>We assign the existing field name to a variable and create a 2nd variable to hold the new field name which is the old minus the last 4 characters.</p>
+						<p>We then rename the field by using these variables.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="6,7,8">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		old_name = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(old_name, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Finally, we save our edits.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="10">layer = iface.activeLayer()
+layer.startEditing()
+							
+for field in layer.fields():
+	if field.name().endswith('(m)'):
+		old_name = layer.fields().lookupField(field.name())
+		new_name = field.name()[:-4]
+		layer.renameAttribute(old_name, new_name)
+							
+layer.commitChanges()</code></pre>					
+					</section>
+
 					<section>
 						<h2>QGIS</h2>
 						<p>Because ArcGIS Pro is very sensitive, I also cleaned up the field names to make them exportable to geodatabase.</p>
@@ -248,8 +346,47 @@ for field in layer.fields():
 
 					<section>
 						<h2>ArcGIS</h2>
+						<p>Add World_Ports from the geodatabase.</p>
 						<p>Select your World_Ports layer in the Layers list and then copy and paste this script into the Python Console Editor. Press enter twice to run.</p>
 						<pre><code class="python">fc = 'World_Ports'
+fieldList = arcpy.ListFields(fc)
+for field in fieldList:
+	fname = field.name
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
+		arcpy.AlterField_management(fc, field.name, new_name)</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>This script finds fields with "Communications" in the name and replaces that text with Comms. There's no particular need to do this (I just wanted an ArcGIS example!).</p>
+						<br>
+						<p>First we list all the field names in the World_Ports layer.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="1,2">fc = 'World_Ports'
+fieldList = arcpy.ListFields(fc)
+for field in fieldList:
+	fname = field.name
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
+		arcpy.AlterField_management(fc, field.name, new_name)</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Then we loop through all the field names.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="3,4">fc = 'World_Ports'
+fieldList = arcpy.ListFields(fc)
+for field in fieldList:
+	fname = field.name
+	if 'Communications' in fname:
+		new_name = fname.replace('Communications', 'Comms')
+		arcpy.AlterField_management(fc, field.name, new_name)</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Finally, if we find the word "Communications" we replace it with Comms.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="5,6,7">fc = 'World_Ports'
 fieldList = arcpy.ListFields(fc)
 for field in fieldList:
 	fname = field.name
@@ -309,6 +446,7 @@ print("done")</code></pre>
 					<section>
 					<section>
 						<h2>QGIS</h2>
+						<p>Copy this script.</p>
 						<pre><code class="python">from qgis.core import *
 from qgis.gui import *
 							
@@ -328,7 +466,7 @@ def pirateports(depth, provisions, water, security,\
 
 					<section>
 						<h2>QGIS</h2>
-						<p>Add your script to the Function Editor and click Save and Load.</p>
+						<p>Open Field Calculator in QGIS. Add your script to the Function Editor and click Save and Load.</p>
 						<img class="r-stretch" data-src="images/qgisfunction.png">
 					</section>
 
@@ -339,11 +477,156 @@ def pirateports(depth, provisions, water, security,\
 						"Supplies - Potable Water", "Port Security")</code></pre>
 						<img class="r-stretch" data-src="images/qgisfield.png">
 					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>This script goes through a few logic steps and assigns a value.</p>
+						<pre data-cc="false"><code class="python">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>We import some QGIS libraries.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="1,2-4">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Then we define a name for our function and assign the inputs to variables. QGIS needs the feature and parent variables even though we don't supply them when we run the expression.</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="5,6">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>In order to do math, we let it know depth is decimal. We need access to fresh water and at least 6m depth for our ship.</p>
+						<p>If a port doesn't have those essentials, it is a definite no (Avast!).</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="7,8,9">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Since we are pirates, having port securoty isn't ideal.</p>
+						<p>These are a soft no (Avast).</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="10,11">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>It would be nice to restock our stores and get water at the same time.</p>
+						<p>These ports are a hearty yes (Aye!).</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="12,13">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>Finally if we haven't eliminated the port or confirmed it is a great option, it is a soft yes (Aye).</p>
+						<pre data-cc="false"><code class="python" data-line-numbers="14,15">from qgis.core import *
+from qgis.gui import *
+							
+@qgsfunction(args='auto', group='Custom')
+def pirateports(depth, provisions, water, security,\
+				feature, parent):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+					</section>
+
 					</section>
 
 					<section>
 					<section>
 						<h2>ArcGIS</h2>
+						<p>Copy this code.</p>
 						<pre><code>
 def pirateports(depth, provisions, water, security):
 	depth = float(depth)
@@ -364,6 +647,25 @@ def pirateports(depth, provisions, water, security):
 						!SuppliesPotable Water!,!Port Security!)</code></pre>
 						<img class="r-stretch" data-src="images/arcgisfield.png">
 					</section>
+
+					<section>
+						<h2>Break it Down</h2>
+						<p>See QGIS section, unlike tools/algorithms, Python logic is exactly the same between the two softwares.</p>
+						<p>The only difference is we don't need feature parent and we add ! instead of " to the field names in the expression.</p>
+						<pre data-cc="false"><code data-line-numbers="1">def pirateports(depth, provisions, water, security):
+	depth = float(depth)
+	if (water =="No" or depth <= 6.0):
+		return "Avast!"
+	elif security=="Yes":
+		return "Avast"
+	elif (provisions=="Yes" and water=="Yes"):
+		return "Aye!"
+	else:
+		return "Aye"</code></pre>
+						<pre data-cc="false"><code class="python">pirateports(!ChannelDepth!,!SuppliesProvisions!,\
+				!SuppliesPotable Water!,!Port Security!)</code></pre>
+					</section>
+
 					</section>
 
 				<section>
@@ -430,8 +732,7 @@ ports['geometry'] = ports.buffer(distance = 1000)
 joined_data = gpd.sjoin(ports, wrecks)
 group = joined_data.groupby(['MainPortName'])['MainPortName']\
 		.count().reset_index(name='wrecks')
-print(group.nlargest(5, 'wrecks'))
-						</code></pre>
+print(group.nlargest(5, 'wrecks'))</code></pre>
 					</section>
 
 					<section>
@@ -700,6 +1001,8 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+		<script src="plugin/copycode/copycode.js"></script>
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
@@ -708,7 +1011,7 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 				hash: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, CopyCode ],
 
 				dependencies: [
           		{ src: "plugin/countdown/countdown.js" },
