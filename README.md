@@ -2,4 +2,4 @@
 
  Python workshop for CalGIS 2023.
  
- Follow along at https://bondah.github.io/calgis2023python
+ # Follow along at https://bondah.github.io/calgis2023python
