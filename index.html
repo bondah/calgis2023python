@@ -210,7 +210,6 @@
 					</section>
 
 					<section>
-					<section>
 						<h3>QGIS</h3>
 						<p>Open the Python console inside QGIS desktop. Click on the Show Editor button to add your script.</p>
 						<img class="r-stretch" data-src="images/qgisconsole.png">
@@ -329,7 +328,6 @@ for field in layer.fields():
 layer.commitChanges()
 print("done")</code></pre>
 					</section>
-					</section>
 
 					<section>
 						<h3>Regular Expressions</h3>
@@ -348,7 +346,6 @@ for field in layer.fields():
 						<p>Here we remove everything that isn't a number or letter.</p>
 					</section>
 
-					<section>
 					<section>
 						<h3>ArcGIS</h3>
 						<p>Open the Python console inside ArcGIS Pro.</p>
@@ -409,7 +406,6 @@ for field in fieldList:
 		arcpy.AlterField_management(fc, field.name, new_name,\
 		new_name)</code></pre>
 					</section>
-					</section>
 
 					<section>
 						<h3>Troubleshooting</h3>
@@ -460,7 +456,6 @@ print("done")</code></pre>
 						<p>In this example, we will add a field called PiratePorts based on attributes of ports that are ideal for our deep draft sailing frigate.</p>
 					</section>
 
-					<section>
 					<section>
 						<h3>QGIS</h3>
 						<p>Copy this script.</p>
@@ -516,7 +511,7 @@ def pirateports(depth, provisions, water, security,\
 					</section>
 
 					<section>
-						<replreplBreak it Down</h3>
+						<h3>Break it Down</h3>
 						<p>We import some QGIS libraries.</p>
 						<pre data-cc="false"><code class="python" data-line-numbers="1,2-4">from qgis.core import *
 from qgis.gui import *
@@ -638,9 +633,6 @@ def pirateports(depth, provisions, water, security,\
 		return "Aye"</code></pre>
 					</section>
 
-					</section>
-
-					<section>
 					<section>
 						<h3>ArcGIS</h3>
 						<p>Copy this code.</p>
@@ -681,8 +673,6 @@ def pirateports(depth, provisions, water, security):
 						<pre data-cc="false"><code class="python">pirateports(!ChannelDepth!,!SuppliesProvisions!,!SuppliesPotableWater!,!PortSecurity!)</code></pre>
 					</section>
 
-					</section>
-
 				<section>
 					<h2>🥱 Break 🕑</h2>
 					<p>Time to step out of the room, stretch, and talk to your neighbor</p>
@@ -720,7 +710,6 @@ def pirateports(depth, provisions, water, security):
 					<img style = "filter:invert(60%)" class="r-stretch" data-src="images/ship.png">
 				</section>
 
-				<section>
 					<section>
 						<h3>Using GeoPandas</h3>
 						<p>First, you'll need all the dependencies.</p>
@@ -810,9 +799,6 @@ print(group.nlargest(10, 'count'))</code></pre>
 						<p>Try adjusting the number of table records returned in nlargest and re-running the model.</p>
 					</section>
 
-				</section>
-
-				<section>
 					<section>
 						<h3>Standalone Using PyQGIS</h3>
 						<p>You'll need QGIS installed to try this out.</p>
@@ -977,9 +963,6 @@ qgs.exitQgis()
 						<img class="r-stretch" data-src="images/chatgpt.png">
 					</section>
 
-				</section>	
-
-				<section>
 					<section>
 						<h3>Standalone Using ArcPy</h3>
 						<p>First in ArcGIS Pro, copy and paste:</p>
@@ -1103,8 +1086,6 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 						<p>In my limited testing, the results for ArcPy were not as good as those for PyQGIS.</p>
 					</section>
 
-				</section>	
-
 				<section>
 					<h2>🥱 Break 🕑</h2>
 					<p>Time to step out of the room, stretch, and talk to your neighbor!</p>
@@ -1146,7 +1127,6 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 					<p>In this example we'll determine the number of attacks that take place in the high seas.</p>
 				</section>
 
-				<section>
 				<section>
 					<h3>GeoPandas Notebook</h3>
 					<p>Create a new notebook by clicking the new button on the upper right and selecting Python 3.</p>
@@ -1226,7 +1206,6 @@ print(len(joined_data))
 print("Percent attacks on the high seas: ",\
 round((len(joined_data)/len(attacks))*100,2))</code></pre>
 					<p>We print out the number of records and can see out of 8771 total attacks, 464 were on the high_seas.</p>
-				</section>
 				</section>
 
 				<section>
