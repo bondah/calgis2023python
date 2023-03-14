@@ -828,30 +828,26 @@ ports = 'C:/GIS/PirateData.gpkg|layername=World_Ports'
 wrecks = 'C:/GIS/PirateData.gpkg|layername=AWOIS_Wrecks'
 outputs = {}
 
-outputs['ReprojectWrecks'] = processing.run\
-	('native:reprojectlayer',\
+outputs['ReprojectWrecks'] = processing.run('native:reprojectlayer',\
 	{'INPUT': wrecks,
 		'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
 		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
 	})
 
-outputs['ReprojectPorts'] = processing.run\
-	('native:reprojectlayer',\
+outputs['ReprojectPorts'] = processing.run('native:reprojectlayer',\
 	{'INPUT': ports,
 		'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
 		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
 	})
 
-outputs['Buffer'] = processing.run\
-	('native:buffer',\
+outputs['Buffer'] = processing.run('native:buffer',\
 	{'DISSOLVE': False,
 		'DISTANCE': 1000,
 		'INPUT': outputs['ReprojectPorts']['OUTPUT'],
 		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
 	})
 
-outputs['CountPointsInPolygon'] = processing.run\
-	('native:countpointsinpolygon',\
+outputs['CountPointsInPolygon'] = processing.run('native:countpointsinpolygon',\
 	{'CLASSFIELD': '',
 		'FIELD': 'wrecks',
 		'POINTS': outputs['ReprojectWrecks']['OUTPUT'],
@@ -860,20 +856,17 @@ outputs['CountPointsInPolygon'] = processing.run\
 	})
 
 request = qgis.core.QgsFeatureRequest()
-clause = qgis.core.QgsFeatureRequest.\
-				OrderByClause('wrecks', ascending=False)
+clause = qgis.core.QgsFeatureRequest.OrderByClause('wrecks', ascending=False)
 orderby = qgis.core.QgsFeatureRequest.OrderBy([clause])
 request.setOrderBy(orderby)
 
 lyr = outputs['CountPointsInPolygon']['OUTPUT']
 features = lyr.getFeatures(request)
-selected_columns = ['WorldPortIndexNumber','MainPortName','wrecks']
+selected_columns = ['MainPortName','wrecks']
 
-i = 0
 for i, feature in enumerate(features):
 	if i < 10:
-		attrs = [feature.attribute(col)\
-						for col in selected_columns]
+		attrs = [feature.attribute(col) for col in selected_columns]
 		print(attrs)
 	else:
 		break
@@ -893,34 +886,30 @@ outputs = {}</code></pre>
 					<section>
 						<h3>Break it Down</h3>
 						<p>Then we reproject our data.</p>
-						<pre data-cc="false"><code class="python">outputs['ReprojectWrecks'] = processing.run\
-('native:reprojectlayer',\
-{'INPUT': wrecks,
-	'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
-	'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
-})
+						<pre data-cc="false"><code class="python">outputs['ReprojectWrecks'] = processing.run('native:reprojectlayer',\
+	{'INPUT': wrecks,
+		'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
+		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
+	})
 
-outputs['ReprojectPorts'] = processing.run\
-('native:reprojectlayer',\
-{'INPUT': ports,
-	'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
-	'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
-})</code></pre>
+outputs['ReprojectPorts'] = processing.run('native:reprojectlayer',\
+	{'INPUT': ports,
+		'TARGET_CRS': QgsCoordinateReferenceSystem('EPSG:3395'),
+		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
+	})</code></pre>
 					</section>
 
 					<section>
 						<h3>Break it Down</h3>
 						<p>Next, we buffer our reprojected ports and count the wrecks in the buffer.</p>
-						<pre data-cc="false"><code class="python">outputs['Buffer'] = processing.run\
-	('native:buffer',\
+						<pre data-cc="false"><code class="python">outputs['Buffer'] = processing.run('native:buffer',\
 	{'DISSOLVE': False,
 		'DISTANCE': 1000,
 		'INPUT': outputs['ReprojectPorts']['OUTPUT'],
 		'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT
 	})
 
-outputs['CountPointsInPolygon'] = processing.run\
-	('native:countpointsinpolygon',\
+outputs['CountPointsInPolygon'] = processing.run('native:countpointsinpolygon',\
 	{'CLASSFIELD': '',
 		'FIELD': 'wrecks',
 		'POINTS': outputs['ReprojectWrecks']['OUTPUT'],
@@ -933,24 +922,21 @@ outputs['CountPointsInPolygon'] = processing.run\
 						<h3>Break it Down</h3>
 						<p>Then we sort by the number of wrecks and specify our output fields.</p>
 						<pre data-cc="false"><code class="python">request = qgis.core.QgsFeatureRequest()
-clause = qgis.core.QgsFeatureRequest.\
-				OrderByClause('wrecks', ascending=False)
+clause = qgis.core.QgsFeatureRequest.OrderByClause('wrecks', ascending=False)
 orderby = qgis.core.QgsFeatureRequest.OrderBy([clause])
 request.setOrderBy(orderby)
 
 lyr = outputs['CountPointsInPolygon']['OUTPUT']
 features = lyr.getFeatures(request)
-selected_columns = ['WorldPortIndexNumber','MainPortName','wrecks']</code></pre>
+selected_columns = ['MainPortName','wrecks']</code></pre>
 					</section>
 
 					<section>
 						<h3>Break it Down</h3>
 						<p>Finally, we iterate through the first ten rows of data and print those out.</p>
-						<pre data-cc="false"><code class="python">i = 0
-for i, feature in enumerate(features):
+						<pre data-cc="false"><code class="python">for i, feature in enumerate(features):
 	if i < 10:
-		attrs = [feature.attribute(col)\
-						for col in selected_columns]
+		attrs = [feature.attribute(col) for col in selected_columns]
 		print(attrs)
 	else:
 		break
@@ -1176,14 +1162,14 @@ with arcpy.da.SearchCursor(output_fc, fields) as cursor:
 					<p>We're adding the pirate attacks and the high seas extents.</p>
 					<pre><code class="python">import geopandas as gpd
 
-attacks = gpd.read_file('C:/GIS/PirateData.gpkg',layername='ASAM_Events')
-seas = gpd.read_file('C:/GIS/PirateData.gpkg',layername='High_Seas')</code></pre>
+attacks = gpd.read_file('C:/GIS/PirateData.gpkg',layer='ASAM_Events')
+seas = gpd.read_file('C:/GIS/PirateData.gpkg',layer='High_Seas')</code></pre>
 				</section>
 
 				<section>
 					<h3>GeoPandas Notebook</h3>
 					<p>Then we will use head to show us a sample of our attacks data.</p>
-					<pre><code class="python">import geopandas as gpd\
+					<pre><code class="python">import geopandas as gpd
 import matplotlib.pyplot as plt
 
 attacks = gpd.read_file('C:/GIS/PirateData.gpkg',\
